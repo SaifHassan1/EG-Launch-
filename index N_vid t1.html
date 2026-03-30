@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EG Launch | دعم المشروعات الصغيرة تسويقياً</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ══ ROOT ══ */
+:root{
+  --pl:#1a5bc4; --cyan:#06b6d4; --accent:#f59e0b;
+  --dark:#050e1f; --dark2:#0a1628;
+  --text:#e2e8f0; --muted:#94a3b8;
+  --glass:rgba(255,255,255,.05); --gb:rgba(255,255,255,.09);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%,rgba(10,61,143,.32) 0%,transparent 60%),
+    radial-gradient(ellipse 55% 50% at 80% 80%,rgba(6,182,212,.12) 0%,transparent 55%)}
+
+/* ══ NAV ══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 5%;height:68px;
+    display:flex;align-items:center;justify-content:space-between;
+    background:rgba(5,14,31,.92);backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--gb);transition:background .3s}
+.logo{font-family:'Tajawal',sans-serif;font-size:1.7rem;font-weight:900;
+      background:linear-gradient(135deg,#fff 0%,var(--cyan) 55%,var(--accent) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      letter-spacing:1px;user-select:none}
+.nav-links{display:flex;list-style:none;gap:1.8rem;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.93rem;font-weight:600;
+             position:relative;transition:color .25s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;right:0;
+                    width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:hover{color:#fff}.nav-links a:hover::after{width:100%}
+.nav-cta{padding:.48rem 1.35rem;background:linear-gradient(135deg,var(--pl),var(--cyan));
+         color:#fff!important;border-radius:50px;font-weight:700;
+         transition:transform .2s,box-shadow .2s!important}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(6,182,212,.38)}
+.nav-cta::after{display:none!important}
+.lang-btn{padding:.38rem .95rem;border:1px solid var(--gb);background:var(--glass);
+          color:var(--muted);border-radius:50px;cursor:pointer;
+          font-family:'Cairo',sans-serif;font-size:.83rem;transition:all .25s}
+.lang-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+.hamburger span{width:24px;height:2px;background:var(--muted);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.nav-mobile{display:none;flex-direction:column;position:fixed;top:68px;left:0;right:0;
+            background:rgba(5,14,31,.98);backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--gb);padding:1.5rem 5%;gap:0;z-index:999;
+            transform:translateY(-10px);opacity:0;transition:all .25s}
+.nav-mobile.open{display:flex;transform:translateY(0);opacity:1}
+.nav-mobile a{color:var(--muted);text-decoration:none;font-size:1rem;font-weight:600;
+              padding:.75rem 0;border-bottom:1px solid var(--gb);transition:color .2s}
+.nav-mobile a:last-child{border-bottom:none}
+.nav-mobile a:hover{color:var(--cyan)}
+
+/* ══ HERO ══ */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;padding:88px 5% 60px;position:relative;z-index:1;gap:3rem}
+
+/* video */
+#video-intro{width:100%;max-width:900px;position:relative}
+#video-stage{position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;
+             box-shadow:0 0 0 1px rgba(255,255,255,.07),0 32px 80px rgba(0,0,0,.8)}
+#video-stage canvas{position:absolute;inset:0;width:100%;height:100%}
+#video-ui{padding:10px 2px 0;display:flex;flex-direction:column;gap:8px}
+#bar-track{width:100%;height:5px;background:rgba(255,255,255,.07);
+           border-radius:5px;cursor:pointer;overflow:hidden}
+#bar-fill{height:100%;width:0%;
+          background:linear-gradient(90deg,#1a5bc4,#06b6d4,#f59e0b);
+          border-radius:5px;pointer-events:none;transition:width .1s linear}
+#video-bottom{display:flex;align-items:center;justify-content:flex-end}
+.v-btns{display:flex;gap:8px}
+.v-btn{padding:5px 18px;border:1px solid rgba(255,255,255,.11);
+       background:rgba(255,255,255,.04);color:#cbd5e1;border-radius:50px;
+       cursor:pointer;font:600 12px 'Cairo',sans-serif;transition:.2s;outline:none}
+.v-btn:hover,.v-btn.on{background:rgba(6,182,212,.15);border-color:#06b6d4;color:#06b6d4}
+#skip-intro{position:absolute;bottom:52px;left:16px;padding:.35rem 1rem;
+            border:1px solid rgba(6,182,212,.22);background:rgba(5,14,31,.75);
+            color:rgba(148,163,184,.8);border-radius:50px;cursor:pointer;
+            font:500 11.5px 'Cairo',sans-serif;transition:all .25s;z-index:5;
+            backdrop-filter:blur(8px)}
+#skip-intro:hover{color:var(--cyan);border-color:var(--cyan);background:rgba(6,182,212,.1)}
+
+/* hero text */
+.hero-content{text-align:center;max-width:760px}
+.hero-badge{display:inline-flex;align-items:center;gap:.45rem;padding:.4rem 1.1rem;
+            margin-bottom:1.4rem;background:rgba(245,158,11,.1);
+            border:1px solid rgba(245,158,11,.3);border-radius:50px;
+            font-size:.82rem;color:var(--accent)}
+.hero-badge::before{content:'✦'}
+.hero h1{font-family:'Tajawal',sans-serif;
+         font-size:clamp(2rem,4.5vw,3.4rem);font-weight:900;line-height:1.2;margin-bottom:1.1rem}
+.hero h1 span{background:linear-gradient(135deg,var(--cyan),var(--accent));
+              -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-desc{color:var(--muted);font-size:1.08rem;line-height:1.85;
+           max-width:580px;margin:0 auto 2rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.btn-primary{padding:.82rem 2rem;
+             background:linear-gradient(135deg,var(--pl),var(--cyan));
+             color:#fff;border:none;border-radius:50px;font-family:'Cairo',sans-serif;
+             font-size:1rem;font-weight:700;cursor:pointer;transition:all .3s;
+             text-decoration:none;display:inline-block}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(26,91,196,.38)}
+.btn-secondary{padding:.82rem 2rem;background:transparent;color:var(--text);
+               border:1px solid var(--gb);border-radius:50px;font-family:'Cairo',sans-serif;
+               font-size:1rem;font-weight:600;cursor:pointer;transition:all .3s;
+               text-decoration:none;display:inline-block}
+.btn-secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* stats bar */
+.stats-bar{width:100%;max-width:860px;display:flex;gap:0;justify-content:center;
+           flex-wrap:wrap;padding-top:2.8rem;border-top:1px solid var(--gb)}
+.stat-item{text-align:center;padding:0 2.2rem;position:relative}
+.stat-item:not(:last-child)::after{content:'';position:absolute;left:0;top:15%;
+  height:70%;width:1px;background:var(--gb)}
+.stat-num{font-family:'Tajawal',sans-serif;font-size:2.1rem;font-weight:900;color:var(--cyan);
+          display:block;line-height:1}
+.stat-lbl{font-size:.76rem;color:var(--muted);margin-top:.35rem;display:block}
+
+/* ══ SECTIONS ══ */
+section{position:relative;z-index:1;padding:90px 5%}
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-tag{display:inline-block;padding:.33rem .95rem;
+             background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.28);
+             border-radius:50px;font-size:.78rem;color:var(--cyan);margin-bottom:.9rem}
+.section-header h2{font-family:'Tajawal',sans-serif;
+                   font-size:clamp(1.75rem,3vw,2.55rem);font-weight:800;margin-bottom:.75rem}
+.section-header p{color:var(--muted);max-width:540px;margin:0 auto;line-height:1.75}
+
+/* ══ SERVICES ══ */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+               gap:1.4rem;max-width:1100px;margin:0 auto}
+.service-card{background:var(--glass);border:1px solid var(--gb);border-radius:18px;
+              padding:1.75rem 1.4rem;transition:all .35s;cursor:pointer;
+              position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+.service-card::before{content:'';position:absolute;top:0;right:0;width:100%;height:3px;
+                      background:linear-gradient(90deg,var(--pl),var(--cyan));
+                      transform:scaleX(0);transition:transform .35s;transform-origin:right}
+.service-card::after{content:'';position:absolute;inset:0;
+                     background:radial-gradient(circle at 50% 0%,rgba(6,182,212,.06),transparent 70%);
+                     opacity:0;transition:opacity .35s}
+.service-card:hover{transform:translateY(-6px);border-color:rgba(6,182,212,.3);
+                    box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-card:hover::after{opacity:1}
+.service-icon{font-size:2.2rem;margin-bottom:1rem;display:block}
+.service-card h3{font-size:.98rem;font-weight:700;margin-bottom:.55rem;color:#fff}
+.service-card p{font-size:.84rem;color:var(--muted);line-height:1.65}
+.svc-cta{display:inline-block;margin-top:1rem;font-size:.8rem;font-weight:700;
+         color:var(--cyan);text-decoration:none;opacity:.75;transition:opacity .2s,letter-spacing .2s}
+.svc-cta:hover{opacity:1;letter-spacing:.3px}
+
+/* ══ PORTFOLIO ══ */
+#portfolio{background:rgba(10,61,143,.04)}
+.portfolio-card{max-width:860px;margin:0 auto;background:var(--glass);
+                border:1px solid var(--gb);border-radius:24px;padding:2.8rem;
+                backdrop-filter:blur(10px)}
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;
+              gap:1.5rem;align-items:center;margin-bottom:2.4rem;text-align:center}
+.ba-label{font-size:.75rem;color:var(--muted);margin-bottom:.4rem;
+          text-transform:uppercase;letter-spacing:2px}
+.ba-num{font-family:'Tajawal',sans-serif;
+        font-size:clamp(2rem,5vw,2.8rem);font-weight:900;line-height:1.1}
+.ba-num.before{color:var(--muted)}
+.ba-num.after{color:var(--cyan)}
+.ba-arrow{font-size:clamp(1.2rem,3vw,2rem);color:var(--accent)}
+.ba-stat{font-size:.85rem;color:var(--muted);margin-top:.3rem}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.mini-stat{text-align:center;padding:1.3rem;background:rgba(0,0,0,.2);
+           border-radius:14px;border:1px solid var(--gb);transition:all .3s}
+.mini-stat:hover{border-color:rgba(6,182,212,.3);transform:translateY(-3px)}
+.mini-num{font-family:'Tajawal',sans-serif;
+          font-size:clamp(1.3rem,3vw,1.75rem);font-weight:800;color:var(--accent)}
+.mini-lbl{font-size:.76rem;color:var(--muted);margin-top:.3rem}
+
+/* ══ PRICING ══ */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);
+              gap:1.4rem;max-width:920px;margin:0 auto}
+.price-card{background:var(--glass);border:1px solid var(--gb);border-radius:24px;
+            padding:2rem 1.5rem;text-align:center;transition:all .3s;
+            position:relative;backdrop-filter:blur(10px)}
+.price-card.featured{
+  background:linear-gradient(135deg,rgba(10,61,143,.45),rgba(6,182,212,.15));
+  border-color:rgba(6,182,212,.45);transform:scale(1.04);
+  box-shadow:0 28px 65px rgba(0,0,0,.3)}
+.price-card:hover:not(.featured){transform:translateY(-5px);
+  box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.featured-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+                padding:.28rem .95rem;
+                background:linear-gradient(135deg,var(--pl),var(--cyan));
+                border-radius:50px;font-size:.74rem;font-weight:700;white-space:nowrap}
+.price-name{font-family:'Tajawal',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.45rem}
+.price-amount{font-family:'Tajawal',sans-serif;font-size:2.45rem;font-weight:900;
+              color:var(--cyan);margin:1rem 0}
+.price-amount span{font-size:.92rem;color:var(--muted)}
+.price-features{list-style:none;margin:1.4rem 0;text-align:right}
+.price-features li{padding:.42rem 0;font-size:.86rem;color:var(--muted);
+                   border-bottom:1px solid var(--gb);
+                   display:flex;align-items:center;gap:.5rem}
+.price-features li::before{content:'✓';color:var(--cyan);font-weight:700;flex-shrink:0}
+.price-tier-label{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;
+                  color:var(--muted);opacity:.6;margin-bottom:.35rem}
+.price-section-lbl{font-size:.72rem;font-weight:700;color:var(--cyan);
+                   text-transform:uppercase;letter-spacing:1.5px;
+                   margin:.9rem 0 .3rem;opacity:.8}
+.price-note{margin-top:.85rem;padding:.6rem .8rem;background:rgba(245,158,11,.07);
+            border:1px solid rgba(245,158,11,.18);border-radius:10px;
+            font-size:.78rem;color:var(--accent);line-height:1.5}
+
+/* ══ LOGIN ══ */
+#login{display:flex;justify-content:center}
+.login-card{background:var(--glass);border:1px solid var(--gb);border-radius:24px;
+            padding:2.8rem;max-width:460px;width:100%;
+            backdrop-filter:blur(15px);text-align:center}
+.login-card h2{font-family:'Tajawal',sans-serif;font-size:1.75rem;font-weight:800;margin-bottom:.45rem}
+.login-card>p{color:var(--muted);margin-bottom:1.8rem;font-size:.9rem}
+.user-types{display:flex;gap:.7rem;margin-bottom:1.8rem;justify-content:center}
+.user-type{padding:.48rem 1.15rem;border:1px solid var(--gb);border-radius:50px;
+           background:transparent;color:var(--muted);cursor:pointer;
+           font-family:'Cairo',sans-serif;font-size:.87rem;transition:all .25s}
+.user-type.active,.user-type:hover{background:rgba(6,182,212,.14);
+                                   border-color:var(--cyan);color:var(--cyan)}
+.form-group{margin-bottom:1.1rem;text-align:right}
+.form-group label{display:block;font-size:.84rem;color:var(--muted);margin-bottom:.38rem}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:.82rem 1rem;background:rgba(0,0,0,.28);
+  border:1px solid var(--gb);border-radius:12px;color:var(--text);
+  font-family:'Cairo',sans-serif;font-size:.9rem;
+  transition:border-color .3s;outline:none;direction:rtl}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:var(--cyan)}
+.form-group textarea{resize:vertical;min-height:95px}
+.form-group select option{background:#0d1f3c}
+.success-msg{display:none;padding:.9rem;background:rgba(6,182,212,.13);
+             border:1px solid rgba(6,182,212,.38);border-radius:12px;
+             color:var(--cyan);text-align:center;font-size:.9rem;margin-top:.9rem}
+
+/* ══ CONTACT ══ */
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;
+              gap:3rem;max-width:880px;margin:0 auto;align-items:start}
+.contact-info h3{font-family:'Tajawal',sans-serif;font-size:1.45rem;
+                 font-weight:700;margin-bottom:.9rem}
+.contact-info>p{color:var(--muted);line-height:1.8;margin-bottom:1.8rem;font-size:.94rem}
+.contact-item{display:flex;align-items:center;gap:.9rem;padding:.9rem 1.1rem;
+              background:var(--glass);border:1px solid var(--gb);
+              border-radius:14px;margin-bottom:.85rem;transition:border-color .3s}
+.contact-item:hover{border-color:rgba(6,182,212,.3)}
+.contact-item-icon{font-size:1.25rem}
+.contact-item-text{font-size:.88rem;color:var(--muted)}
+.contact-form{background:var(--glass);border:1px solid var(--gb);
+              border-radius:24px;padding:2rem;backdrop-filter:blur(10px)}
+
+/* ══ FOOTER ══ */
+footer{background:rgba(5,14,31,.97);border-top:1px solid var(--gb);
+       padding:3rem 5% 1.5rem;position:relative;z-index:1}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2.4rem}
+.footer-brand .logo{display:block;margin-bottom:.95rem}
+.footer-brand p{color:var(--muted);font-size:.88rem;line-height:1.75}
+.footer-col h4{font-size:.93rem;font-weight:700;margin-bottom:.9rem;color:var(--cyan)}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.55rem}
+.footer-col ul li a{color:var(--muted);text-decoration:none;font-size:.86rem;transition:color .25s}
+.footer-col ul li a:hover{color:var(--cyan)}
+.social-links{display:flex;gap:.75rem;margin-top:1.1rem}
+.social-btn{width:38px;height:38px;background:var(--glass);border:1px solid var(--gb);
+            border-radius:10px;display:flex;align-items:center;justify-content:center;
+            color:var(--muted);text-decoration:none;font-size:.88rem;
+            font-weight:700;transition:all .25s}
+.social-btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(6,182,212,.1)}
+.footer-bottom{border-top:1px solid var(--gb);padding-top:1.4rem;
+               display:flex;justify-content:space-between;align-items:center;
+               flex-wrap:wrap;gap:.5rem}
+.footer-bottom p{font-size:.8rem;color:var(--muted)}
+
+/* ══ WHATSAPP ══ */
+.wa-float{position:fixed;bottom:2rem;left:2rem;z-index:1000;width:56px;height:56px;
+          background:#25d366;border-radius:50%;display:flex;align-items:center;
+          justify-content:center;font-size:1.5rem;cursor:pointer;
+          box-shadow:0 8px 24px rgba(37,211,102,.38);
+          transition:transform .3s,box-shadow .3s;text-decoration:none}
+.wa-float:hover{transform:scale(1.12);box-shadow:0 12px 34px rgba(37,211,102,.55)}
+
+/* ══ TECH STACK ══ */
+#tech{background:rgba(6,182,212,.02)}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);
+           gap:1.3rem;max-width:1060px;margin:0 auto}
+.tech-card{background:var(--glass);border:1px solid var(--gb);border-radius:20px;
+           padding:1.6rem 1.5rem 1.4rem;position:relative;overflow:hidden;
+           backdrop-filter:blur(12px);transition:all .35s;cursor:default}
+.tech-card::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 0% 0%,rgba(6,182,212,.06),transparent 65%);
+  opacity:0;transition:opacity .35s}
+.tech-card:hover{transform:translateY(-5px);border-color:rgba(6,182,212,.28);
+  box-shadow:0 20px 50px rgba(0,0,0,.28)}
+.tech-card:hover::before{opacity:1}
+.tech-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.9rem}
+.tech-icon-wrap{width:42px;height:42px;border-radius:12px;
+  background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.2);
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.tech-sub{font-size:.67rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;
+  font-weight:600;opacity:.7;padding-top:4px}
+.tech-card h3{font-family:'Tajawal',sans-serif;font-size:1.07rem;font-weight:700;
+  color:#fff;margin-bottom:.55rem;padding-bottom:.55rem;
+  border-bottom:1px solid var(--gb)}
+.tech-metrics{display:flex;gap:1.4rem;margin-top:.7rem}
+.tech-metric-val{font-family:'Tajawal',sans-serif;font-size:1.3rem;font-weight:800;
+  color:var(--cyan);line-height:1.1;display:block}
+.tech-metric-lbl{font-size:.72rem;color:var(--muted);margin-top:.15rem;display:block}
+
+/* ══ REVEAL ANIMATION — content always visible, animation is bonus ══ */
+/* default: visible always */
+.reveal{opacity:1;transform:translateY(0)}
+/* JS adds .will-anim before page load, then .done when intersecting */
+.will-anim{opacity:0;transform:translateY(26px);
+           transition:opacity .6s cubic-bezier(.16,1,.3,1),
+                       transform .6s cubic-bezier(.16,1,.3,1)}
+.will-anim.done{opacity:1;transform:translateY(0)}
+
+/* stagger for children */
+.will-anim:nth-child(2){transition-delay:.08s}
+.will-anim:nth-child(3){transition-delay:.16s}
+.will-anim:nth-child(4){transition-delay:.24s}
+.will-anim:nth-child(5){transition-delay:.32s}
+.will-anim:nth-child(6){transition-delay:.4s}
+.will-anim:nth-child(7){transition-delay:.48s}
+.will-anim:nth-child(8){transition-delay:.56s}
+
+/* ══ KEYFRAMES ══ */
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp  {from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)}}
+@keyframes pulse-wa  {0%,100%{box-shadow:0 8px 24px rgba(37,211,102,.38)}
+                      50%    {box-shadow:0 8px 38px rgba(37,211,102,.65)}}
+.hero-badge{animation:fadeInDown .6s ease both}
+.hero h1{animation:fadeInUp .7s ease .1s both}
+.hero-desc{animation:fadeInUp .7s ease .2s both}
+.hero-btns{animation:fadeInUp .7s ease .3s both}
+.stats-bar{animation:fadeInUp .7s ease .45s both}
+.wa-float{animation:pulse-wa 2.8s ease-in-out infinite}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .contact-grid,.footer-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr;max-width:380px;margin:0 auto}
+  .price-card.featured{transform:none}
+  .tech-grid{grid-template-columns:1fr 1fr}
+  section{padding:70px 4%}
+}
+@media(max-width:640px){
+  .services-grid{grid-template-columns:1fr 1fr}
+  .tech-grid{grid-template-columns:1fr}
+  .before-after{grid-template-columns:1fr;gap:.8rem}
+  .ba-arrow{transform:rotate(90deg);display:block;margin:0 auto;
+            font-size:1.5rem!important}
+  .stats-row{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:stretch}
+  .btn-primary,.btn-secondary{text-align:center}
+  .portfolio-card{padding:1.5rem}
+  .login-card{padding:1.8rem}
+  .stat-item{padding:0 1.2rem}
+  #video-intro{margin-bottom:0}
+}
+@media(max-width:400px){
+  .services-grid{grid-template-columns:1fr}
+  .stats-bar{gap:0;padding-top:2rem}
+  .stat-item{width:50%;padding:.8rem}
+  .stat-item::after{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <span class="logo">EG Launch</span>
+  <ul class="nav-links">
+    <li><a href="#hero">الرئيسية</a></li>
+    <li><a href="#services">خدماتنا</a></li>
+    <li><a href="#portfolio">أعمالنا</a></li>
+    <li><a href="#tech">تقنيتنا</a></li>
+    <li><a href="#pricing">الباقات</a></li>
+    <li><a href="#contact">تواصل معنا</a></li>
+    <li><a href="#contact" class="nav-cta">ابدأ الآن</a></li>
+  </ul>
+  <div style="display:flex;gap:.8rem;align-items:center">
+    <button class="lang-btn" onclick="toggleLang()">EN / عر</button>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#hero"      onclick="closeMenu()">الرئيسية</a>
+  <a href="#services"  onclick="closeMenu()">خدماتنا</a>
+  <a href="#portfolio" onclick="closeMenu()">أعمالنا</a>
+  <a href="#tech"      onclick="closeMenu()">تقنيتنا</a>
+  <a href="#pricing"   onclick="closeMenu()">الباقات</a>
+  <a href="#contact"   onclick="closeMenu()">تواصل معنا</a>
+  <a href="#contact"   onclick="closeMenu()" style="color:var(--cyan)">ابدأ الآن ←</a>
+  <a href="#login"     onclick="closeMenu()" style="font-size:.85rem;opacity:.6">بوابة العملاء 🔑</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+
+  <!-- VIDEO -->
+  <div id="video-intro">
+    <div id="video-stage">
+      <canvas id="cvBg"></canvas>
+      <canvas id="cvFg"></canvas>
+      <button id="skip-intro" onclick="skipVideo()">إخفاء ✕</button>
+    </div>
+    <div id="video-ui">
+      <div id="bar-track"><div id="bar-fill"></div></div>
+      <div id="video-bottom">
+        <div class="v-btns">
+          <button class="v-btn on" id="btnPlay">⏸ إيقاف</button>
+          <button class="v-btn" id="btnReset">↺ إعادة</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEXT -->
+  <div class="hero-content">
+    <div class="hero-badge">شريكك في النمو الرقمي ✦ القاهرة، مصر</div>
+    <h1>مشروعك الصغير <span>يستحق تسويق الكبار</span></h1>
+    <p class="hero-desc">بنبني لك حضور رقمي حقيقي — من الهوية للإعلان للمحتوى. كل حاجة في مكانها، وكل قرار مبني على بيانات.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">ابدأ مشروعك الآن ←</a>
+      <a href="#services" class="btn-secondary">اعرف خدماتنا</a>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num" id="cnt1">30</span>
+      <span class="stat-lbl">عميل نشط حالياً</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="cnt2">18</span>
+      <span class="stat-lbl">شهر خبرة في السوق المصري</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="cnt3">94</span>
+      <span class="stat-lbl">% نسبة رضا العملاء</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">8+</span>
+      <span class="stat-lbl">خدمة تسويقية متكاملة</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <div class="section-tag">ما نقدمه</div>
+    <h2>كل خدمة ليها هدف واحد — <span style="background:linear-gradient(135deg,var(--cyan),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">تنمية مشروعك</span></h2>
+    <p>مش خدمات منفصلة — منظومة متكاملة كل جزء فيها بيغذي التاني</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-icon">🎨</span>
+      <h3>تصميم الهوية البصرية</h3>
+      <p>لوجو، ألوان، خطوط — هوية تميزك وتثبت في ذهن عميلك من أول نظرة</p>
+      <a href="#contact" class="svc-cta">ابدأ هويتك ←</a>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📱</span>
+      <h3>إدارة السوشيال ميديا</h3>
+      <p>محتوى هادف، تفاعل حقيقي، وخطة نشر منتظمة تنمي جمهورك كل يوم</p>
+      <a href="#contact" class="svc-cta">احجز استشارة ←</a>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📣</span>
+      <h3>الإعلانات الممولة</h3>
+      <p>حملات Meta وGoogle بأعلى ROI — بنستهدف جمهورك الصح ومش بنصرف قرش زيادة</p>
+      <a href="#contact" class="svc-cta">شوف كيف ←</a>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🔍</span>
+      <h3>SEO & SEM</h3>
+      <p>خلي مشروعك يظهر أول ما حد يدور — عملاء جادين جايين ليك مش أنت جاي ليهم</p>
+      <a href="#contact" class="svc-cta">حلل موقعك ←</a>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🎬</span>
+      <h3>إنتاج الفيديو والريلز</h3>
+      <p>محتوى مرئي بيوقف الـ scroll — مونتاج احترافي وـVoice Over بشري 100%</p>
+      <a href="#contact" class="svc-cta">اعمل فيديو ←</a>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📷</span>
+      <h3>جلسات التصوير</h3>
+      <p>صور منتجاتك وفريقك بشكل يعكس جودتك الحقيقية ويخلي العميل يثق فيك</p>
+      <a href="#contact" class="svc-cta">احجز جلسة ←</a>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📊</span>
+      <h3>تحليل البيانات والتقارير</h3>
+      <p>مش بس أرقام — بنحولها لقرارات تفرق. تقارير أسبوعية وشهرية واضحة وقابلة للتنفيذ</p>
+      <a href="#contact" class="svc-cta">اعرف بياناتك ←</a>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">💡</span>
+      <h3>الاستراتيجية التسويقية</h3>
+      <p>أول خطوة معنا هي تحليل سوقك ومنافسيك — عشان نبني على أساس صح من البداية</p>
+      <a href="#contact" class="svc-cta">ابدأ بالاستراتيجية ←</a>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-header reveal">
+    <div class="section-tag">نتائج حقيقية</div>
+    <h2>أعمالنا بالأرقام</h2>
+    <p>نفخر بنتائج قابلة للقياس — مش كلام في الهوا</p>
+  </div>
+  <div class="portfolio-card reveal">
+    <div class="before-after">
+      <div class="ba-block">
+        <div class="ba-label">قبل الإدارة</div>
+        <div class="ba-num before">1,200</div>
+        <div class="ba-stat">متابع شهرياً</div>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-block">
+        <div class="ba-label">بعد 3 شهور</div>
+        <div class="ba-num after">14,800</div>
+        <div class="ba-stat">متابع شهرياً</div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="mini-stat reveal"><div class="mini-num">+1,133%</div><div class="mini-lbl">نمو المتابعين</div></div>
+      <div class="mini-stat reveal"><div class="mini-num">4.2x</div><div class="mini-lbl">معدل التحويل</div></div>
+      <div class="mini-stat reveal"><div class="mini-num">−38%</div><div class="mini-lbl">تكلفة الإعلان</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="tech">
+  <div class="section-header reveal">
+    <div class="section-tag">ليه EG Launch؟</div>
+    <h2>أدوات احترافية. <span style="background:linear-gradient(135deg,var(--cyan),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">نتائج حقيقية.</span></h2>
+    <p>مش بنقولك "بنستخدم أحدث التقنيات" — بنوريك الأرقام اللي وراها</p>
+  </div>
+  <div class="tech-grid">
+
+    <div class="tech-card reveal">
+      <div class="tech-card-top">
+        <div class="tech-icon-wrap">🤖</div>
+        <span class="tech-sub">ذكاء اصطناعي</span>
+      </div>
+      <h3>أتمتة ذكية بالـ AI</h3>
+      <div class="tech-metrics">
+        <div><span class="tech-metric-val">40+</span><span class="tech-metric-lbl">ساعة توفير أسبوعياً لكل عميل</span></div>
+        <div><span class="tech-metric-val">3×</span><span class="tech-metric-lbl">سرعة إنتاج المحتوى</span></div>
+      </div>
+    </div>
+
+    <div class="tech-card reveal">
+      <div class="tech-card-top">
+        <div class="tech-icon-wrap">📣</div>
+        <span class="tech-sub">أداء الحملات</span>
+      </div>
+      <h3>إعلانات مبنية على بيانات</h3>
+      <div class="tech-metrics">
+        <div><span class="tech-metric-val">2.8×</span><span class="tech-metric-lbl">متوسط ROAS لعملائنا</span></div>
+        <div><span class="tech-metric-val">60+</span><span class="tech-metric-lbl">حملة مُدارة لحد دلوقتي</span></div>
+      </div>
+    </div>
+
+    <div class="tech-card reveal">
+      <div class="tech-card-top">
+        <div class="tech-icon-wrap">🎯</div>
+        <span class="tech-sub">تحسين مستمر</span>
+      </div>
+      <h3>اختبار وتحسين الأداء</h3>
+      <div class="tech-metrics">
+        <div><span class="tech-metric-val">+45%</span><span class="tech-metric-lbl">متوسط تحسن معدل التحويل</span></div>
+        <div><span class="tech-metric-val">أسبوعياً</span><span class="tech-metric-lbl">دورة مراجعة وتعديل</span></div>
+      </div>
+    </div>
+
+    <div class="tech-card reveal">
+      <div class="tech-card-top">
+        <div class="tech-icon-wrap">🎬</div>
+        <span class="tech-sub">محتوى مرئي</span>
+      </div>
+      <h3>إنتاج فيديو وريلز</h3>
+      <div class="tech-metrics">
+        <div><span class="tech-metric-val">80+</span><span class="tech-metric-lbl">فيديو وريلز منتجة</span></div>
+        <div><span class="tech-metric-val">+72%</span><span class="tech-metric-lbl">متوسط زيادة التفاعل</span></div>
+      </div>
+    </div>
+
+    <div class="tech-card reveal">
+      <div class="tech-card-top">
+        <div class="tech-icon-wrap">🔍</div>
+        <span class="tech-sub">ظهور عضوي</span>
+      </div>
+      <h3>SEO والمحتوى</h3>
+      <div class="tech-metrics">
+        <div><span class="tech-metric-val">+180%</span><span class="tech-metric-lbl">متوسط نمو الزيارات العضوية</span></div>
+        <div><span class="tech-metric-val">90 يوم</span><span class="tech-metric-lbl">للوصول لنتائج ملموسة</span></div>
+      </div>
+    </div>
+
+    <div class="tech-card reveal">
+      <div class="tech-card-top">
+        <div class="tech-icon-wrap">💬</div>
+        <span class="tech-sub">دعم فوري</span>
+      </div>
+      <h3>تواصل مباشر مع فريقك</h3>
+      <div class="tech-metrics">
+        <div><span class="tech-metric-val">&lt;2 ساعة</span><span class="tech-metric-lbl">متوسط وقت الرد</span></div>
+        <div><span class="tech-metric-val">7 أيام</span><span class="tech-metric-lbl">دعم طول الأسبوع</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-header reveal">
+    <div class="section-tag">الباقات</div>
+    <h2>ابدأ من أي مكان — <span style="background:linear-gradient(135deg,var(--cyan),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">وكبّر مع ما تكبر</span></h2>
+    <p>كل باقة مبنية على اللي قبلها — مش بتدفع مرتين لنفس الخدمة</p>
+  </div>
+
+  <div class="pricing-grid">
+
+    <!-- TIER 1 -->
+    <div class="price-card reveal">
+      <div class="price-tier-label">المرحلة الأولى</div>
+      <div class="price-name">انطلاقة 🚀</div>
+      <p style="color:var(--muted);font-size:.84rem;margin-bottom:.3rem">لمن بيبدأ من الصفر</p>
+      <div class="price-amount">1,499 <span>جنيه/شهر</span></div>
+
+      <div class="price-section-lbl">الهوية والأساس</div>
+      <ul class="price-features">
+        <li>تصميم هوية بصرية كاملة</li>
+        <li>إدارة منصة واحدة (Facebook أو Instagram)</li>
+        <li>12 منشور شهرياً مصمم ومكتوب</li>
+      </ul>
+
+      <div class="price-section-lbl">المتابعة والتقارير</div>
+      <ul class="price-features">
+        <li>تقرير أداء شهري مفصّل</li>
+        <li>استشارة تسويقية مجانية (الشهر الأول)</li>
+      </ul>
+
+      <div class="price-note">مثالي لـ: كافيهات، محلات ملابس، خدمات مهنية</div>
+      <button class="btn-secondary" style="width:100%;margin-top:1.2rem" onclick="goTo('#contact')">ابدأ رحلتك ←</button>
+    </div>
+
+    <!-- TIER 2 (FEATURED) -->
+    <div class="price-card featured reveal">
+      <div class="featured-badge">⭐ الأكثر اختياراً</div>
+      <div class="price-tier-label" style="color:rgba(6,182,212,.7)">المرحلة الثانية</div>
+      <div class="price-name">نمو 📈</div>
+      <p style="color:var(--muted);font-size:.84rem;margin-bottom:.3rem">لمن عنده حضور ويريد توسع حقيقي</p>
+      <div class="price-amount">2,999 <span>جنيه/شهر</span></div>
+
+      <div class="price-section-lbl">كل حاجة في انطلاقة +</div>
+      <ul class="price-features">
+        <li>إدارة 3 منصات (Facebook, Instagram, TikTok)</li>
+        <li>25 منشور شهرياً + 4 ريلز احترافية</li>
+        <li>إعلانات ممولة — بدجيت 500 جنيه مُدار</li>
+      </ul>
+
+      <div class="price-section-lbl">تسريع النمو</div>
+      <ul class="price-features">
+        <li>تقارير أسبوعية + اجتماع شهري</li>
+        <li>دعم واتساب مباشر مع مديرك</li>
+        <li>تحليل منافسين كل 3 شهور</li>
+      </ul>
+
+      <div class="price-note">مثالي لـ: مطاعم، تجارة إلكترونية، تعليم وتدريب</div>
+      <button class="btn-primary" style="width:100%;margin-top:1.2rem" onclick="goTo('#contact')">اختار نمو ←</button>
+    </div>
+
+    <!-- TIER 3 -->
+    <div class="price-card reveal">
+      <div class="price-tier-label">المرحلة الثالثة</div>
+      <div class="price-name">انتشار 🌍</div>
+      <p style="color:var(--muted);font-size:.84rem;margin-bottom:.3rem">لمن جاهز يسيطر على السوق</p>
+      <div class="price-amount">5,499 <span>جنيه/شهر</span></div>
+
+      <div class="price-section-lbl">كل حاجة في نمو +</div>
+      <ul class="price-features">
+        <li>إدارة كل المنصات + LinkedIn</li>
+        <li>محتوى يومي + 8 ريلز + جلسة تصوير شهرية</li>
+        <li>إعلانات ممولة — بدجيت 1,500 جنيه مُدار</li>
+      </ul>
+
+      <div class="price-section-lbl">الظهور والسيطرة</div>
+      <ul class="price-features">
+        <li>SEO & SEM كامل</li>
+        <li>لوحة تحكم تفاعلية لمتابعة النتائج</li>
+        <li>مدير حساب مخصص على مدار الأسبوع</li>
+      </ul>
+
+      <div class="price-note">مثالي لـ: شركات ناشئة، عيادات، وكالات عقارية</div>
+      <button class="btn-secondary" style="width:100%;margin-top:1.2rem" onclick="goTo('#contact')">تكلم بمبادرة ←</button>
+    </div>
+
+  </div>
+
+  <!-- Pricing footnote -->
+  <p style="text-align:center;color:var(--muted);font-size:.82rem;margin-top:2rem;opacity:.7">
+    * البدجيت الإعلاني منفصل عن سعر الباقة — بيتحدد حسب هدفك واحتياجك
+    &nbsp;·&nbsp; جميع الباقات قابلة للتخصيص عند التواصل
+  </p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <div class="section-tag">ابدأ رحلتك</div>
+    <h2>تواصل معنا</h2>
+    <p>أرسل بياناتك وسيتواصل معك فريقنا خلال 24 ساعة</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <h3>احنا هنا عشانك 👋</h3>
+      <p>مش مجرد وكالة إعلانية — احنا شريك نجاحك. بنحلل مشروعك الأول عشان نقدم خطة تسويقية تناسبك بالظبط.</p>
+      <div class="contact-item"><span class="contact-item-icon">📧</span><span class="contact-item-text">info@eglaunch.com</span></div>
+      <div class="contact-item"><span class="contact-item-icon">📱</span><span class="contact-item-text">01000000000+</span></div>
+      <div class="contact-item"><span class="contact-item-icon">📍</span><span class="contact-item-text">القاهرة، مصر</span></div>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-group"><label>الاسم</label><input type="text" placeholder="اسمك الكريم" id="cName"></div>
+      <div class="form-group"><label>رقم الهاتف</label><input type="tel" placeholder="01XXXXXXXXX" id="cPhone"></div>
+      <div class="form-group">
+        <label>المجال التجاري</label>
+        <select id="cField">
+          <option value="">اختار مجالك</option>
+          <option>مطاعم وكافيهات</option><option>ملابس وأزياء</option>
+          <option>تجميل ومستحضرات</option><option>تكنولوجيا وتطبيقات</option>
+          <option>تعليم وتدريب</option><option>خدمات مهنية</option><option>أخرى</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>مدة التواجد في السوق</label>
+        <select id="cDuration">
+          <option value="">اختار</option>
+          <option>بادئ جديد</option><option>أقل من سنة</option>
+          <option>1-3 سنوات</option><option>أكثر من 3 سنوات</option>
+        </select>
+      </div>
+      <div class="form-group"><label>رسالة (اختياري)</label>
+        <textarea placeholder="أي تفاصيل إضافية عن مشروعك..." id="cMsg"></textarea></div>
+      <button class="btn-primary" style="width:100%" onclick="handleContact()">أرسل البيانات ←</button>
+      <div class="success-msg" id="contactSuccess">✅ تم استلام بياناتك! سيتواصل معك فريقنا خلال 24 ساعة.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIN -->
+<section id="login">
+  <div class="login-card reveal">
+    <div style="font-size:2.4rem;margin-bottom:.9rem">🔑</div>
+    <h2>بوابة العملاء</h2>
+    <p>تابع أداء مشروعك وتقاريرك في مكان واحد</p>
+    <div class="user-types">
+      <button class="user-type active" onclick="setType(this)">عميل</button>
+      <button class="user-type" onclick="setType(this)">مدير</button>
+      <button class="user-type" onclick="setType(this)">شركة</button>
+    </div>
+    <div class="form-group"><label>اسم المستخدم</label><input type="text" placeholder="أدخل اسم المستخدم" id="loginUser"></div>
+    <div class="form-group"><label>كلمة المرور</label><input type="password" placeholder="أدخل كلمة المرور" id="loginPass"></div>
+    <button class="btn-primary" style="width:100%;margin-top:.4rem" onclick="handleLogin()">دخول</button>
+    <div class="success-msg" id="loginSuccess">✅ تم تسجيل الدخول بنجاح!</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">EG Launch</span>
+      <p>وكالة إعلانية رقمية متكاملة متخصصة في دعم الشركات الناشئة والمشروعات الصغيرة في مصر والعالم العربي.</p>
+      <div class="social-links">
+        <a href="#" class="social-btn">f</a>
+        <a href="#" class="social-btn">ig</a>
+        <a href="#" class="social-btn">tk</a>
+        <a href="#" class="social-btn">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <ul>
+        <li><a href="#hero">الرئيسية</a></li>
+        <li><a href="#services">خدماتنا</a></li>
+        <li><a href="#portfolio">أعمالنا</a></li>
+        <li><a href="#pricing">الباقات</a></li>
+        <li><a href="#contact">تواصل معنا</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>الخدمات</h4>
+      <ul>
+        <li><a href="#">إدارة السوشيال ميديا</a></li>
+        <li><a href="#">إعلانات ممولة</a></li>
+        <li><a href="#">SEO & SEM</a></li>
+        <li><a href="#">تصميم الهوية</a></li>
+        <li><a href="#">إنتاج الفيديو</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 EG Launch. جميع الحقوق محفوظة.</p>
+    <p style="color:rgba(148,163,184,.3)">eglaunch.com</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/201000000000" class="wa-float" target="_blank">💬</a>
+
+<!-- ══════════════════════════════════════
+     VIDEO ENGINE — PREMIUM REBUILD
+══════════════════════════════════════ -->
+<script>
+(function(){
+'use strict';
+
+/* ── canvas setup ── */
+const VW=900,VH=506,DPR=Math.min(window.devicePixelRatio||1,2);
+function mkC(id){
+  const el=document.getElementById(id);
+  if(!el)return null;
+  el.width=VW*DPR; el.height=VH*DPR;
+  const c=el.getContext('2d');
+  c.scale(DPR,DPR);
+  return c;
+}
+const bgC=mkC('cvBg'), fg=mkC('cvFg');
+if(!bgC||!fg)return;
+
+function safe(fn){
+  fg.save();
+  fg.shadowBlur=0; fg.shadowColor='transparent'; fg.globalAlpha=1;
+  fn(); fg.shadowBlur=0; fg.shadowColor='transparent'; fg.restore();
+}
+
+/* ── palette ── */
+const K={
+  dark:'#02060f', blue:'#1a5bc4', cyan:'#06b6d4',
+  amber:'#f59e0b', white:'#fff', muted:'#6a85a0',
+  green:'#22c55e', red:'#ef4444', purple:'#8b5cf6',
+  cyanDim:'rgba(6,182,212,.18)', blueDim:'rgba(26,91,196,.18)'
+};
+
+/* ── easing ── */
+const cl=(v,a,b)=>Math.max(a,Math.min(b,v));
+const lp=(a,b,t)=>a+(b-a)*t;
+const E={
+  o3:t=>1-(1-t)**3,
+  o4:t=>1-(1-t)**4,
+  o5:t=>1-(1-t)**5,
+  io:t=>t<.5?4*t**3:1-((-2*t+2)**3)/2,
+  sp:t=>{if(t<=0)return 0;if(t>=1)return 1;return 2**(-10*t)*Math.sin((t*10-.75)*(2*Math.PI/3))+1;},
+  bk:t=>{const c=2.70158;return 1+c*(t-1)**3+1.70158*(t-1)**2;},
+  sine:t=>1-Math.cos((t*Math.PI)/2)
+};
+
+/* ── scenes ── */
+const SC=[
+  {s:0,    d:3800, lbl:'EG Launch'},
+  {s:3800, d:4200, lbl:'المشكلة'},
+  {s:8000, d:4200, lbl:'الحل'},
+  {s:12200,d:4000, lbl:'انطلق'},
+];
+const TOT=SC[SC.length-1].s+SC[SC.length-1].d;
+function sp(t,i){return cl((t-SC[i].s)/SC[i].d,0,1);}
+function seg(p,o,n){return cl((p-o)/n,0,1);}
+
+/* ── particles (layered: depth + speed classes) ── */
+const pts=Array.from({length:55},(_,i)=>({
+  x:Math.random()*VW, y:Math.random()*VH,
+  r:i<20?Math.random()*.9+.2:Math.random()*1.8+.5,
+  vx:(Math.random()-.5)*(i<20?.08:.22),
+  vy:(Math.random()-.5)*(i<20?.06:.18),
+  op:i<20?Math.random()*.08+.02:Math.random()*.18+.04,
+  col:i%3===0?'245,158,11':i%3===1?'6,182,212':'139,92,246'
+}));
+
+/* ── noise grid (subtle animated mesh) ── */
+const GRID=[];
+for(let gx=0;gx<=VW;gx+=80)for(let gy=0;gy<=VH;gy+=80)
+  GRID.push({x:gx,y:gy,ph:Math.random()*Math.PI*2,sp:Math.random()*.0008+.0003});
+
+/* ── aurora layers ── */
+function drawBg(t){
+  bgC.clearRect(0,0,VW,VH);
+
+  /* deep space base */
+  const base=bgC.createLinearGradient(0,0,0,VH);
+  base.addColorStop(0,'#010812');
+  base.addColorStop(.5,'#020d1e');
+  base.addColorStop(1,'#030c18');
+  bgC.fillStyle=base; bgC.fillRect(0,0,VW,VH);
+
+  /* aurora 1 — slow blue nebula */
+  const ax=VW*.28+Math.sin(t*.00025)*80, ay=VH*.22+Math.cos(t*.0003)*50;
+  const a1=bgC.createRadialGradient(ax,ay,0,ax,ay,VW*.62);
+  a1.addColorStop(0,'rgba(14,52,140,.28)'); a1.addColorStop(.5,'rgba(6,30,90,.12)'); a1.addColorStop(1,'transparent');
+  bgC.fillStyle=a1; bgC.fillRect(0,0,VW,VH);
+
+  /* aurora 2 — cyan accent */
+  const bx=VW*.72+Math.cos(t*.00032)*60, by=VH*.65+Math.sin(t*.00028)*40;
+  const a2=bgC.createRadialGradient(bx,by,0,bx,by,VW*.38);
+  a2.addColorStop(0,'rgba(6,182,212,.09)'); a2.addColorStop(1,'transparent');
+  bgC.fillStyle=a2; bgC.fillRect(0,0,VW,VH);
+
+  /* aurora 3 — purple whisper */
+  const cx2=VW*.55+Math.sin(t*.00018)*120, cy2=VH*.4+Math.cos(t*.00022)*60;
+  const a3=bgC.createRadialGradient(cx2,cy2,0,cx2,cy2,VW*.45);
+  a3.addColorStop(0,'rgba(100,60,200,.06)'); a3.addColorStop(1,'transparent');
+  bgC.fillStyle=a3; bgC.fillRect(0,0,VW,VH);
+
+  /* dot grid — animated subtle mesh */
+  GRID.forEach(g=>{
+    const gy=g.y+Math.sin(t*g.sp+g.ph)*12;
+    bgC.beginPath(); bgC.arc(g.x,gy,1,0,Math.PI*2);
+    bgC.fillStyle=`rgba(6,182,212,${.025+.012*Math.sin(t*.001+g.ph)})`; bgC.fill();
+  });
+
+  /* particles */
+  pts.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<-2)p.x=VW+2; if(p.x>VW+2)p.x=-2;
+    if(p.y<-2)p.y=VH+2; if(p.y>VH+2)p.y=-2;
+    bgC.beginPath(); bgC.arc(p.x,p.y,p.r,0,Math.PI*2);
+    bgC.fillStyle=`rgba(${p.col},${p.op})`; bgC.fill();
+  });
+}
+
+/* ══════════════════════════════
+   PRIMITIVES
+══════════════════════════════ */
+function box(x,y,w,h,r,fill,stroke,a=1,lw=1){
+  if(a<=0)return;
+  safe(()=>{fg.globalAlpha=a;fg.beginPath();fg.roundRect(x,y,w,h,r);
+    if(fill){fg.fillStyle=fill;fg.fill();}
+    if(stroke){fg.strokeStyle=stroke;fg.lineWidth=lw;fg.stroke();}});
+}
+
+/* glass card with inner highlight */
+function glassCard(x,y,w,h,r,tint,a=1){
+  if(a<=0)return;
+  safe(()=>{
+    fg.globalAlpha=a;
+    fg.beginPath();fg.roundRect(x,y,w,h,r);
+    fg.fillStyle=tint||'rgba(255,255,255,.04)'; fg.fill();
+    /* top edge highlight */
+    fg.beginPath();fg.roundRect(x+.5,y+.5,w-1,h-1,r);
+    fg.strokeStyle='rgba(255,255,255,.08)';fg.lineWidth=1;fg.stroke();
+    /* bottom edge shadow */
+    fg.beginPath();fg.moveTo(x+r,y+h);fg.lineTo(x+w-r,y+h);
+    fg.strokeStyle='rgba(0,0,0,.35)';fg.lineWidth=1;fg.stroke();
+  });
+}
+
+function T(str,x,y,{sz=14,w='600',col='#fff',al='center',a=1}={}){
+  if(!str||a<=0)return;
+  safe(()=>{fg.globalAlpha=a;fg.font=`${w} ${sz}px Cairo`;
+    fg.fillStyle=col;fg.textAlign=al;fg.textBaseline='middle';fg.fillText(str,x,y);});
+}
+
+function GT(str,x,y,sz,cols,a=1){
+  if(a<=0)return;
+  safe(()=>{fg.globalAlpha=a;fg.font=`900 ${sz}px Tajawal`;
+    fg.textAlign='center';fg.textBaseline='middle';
+    const mw=fg.measureText(str).width;
+    const g=fg.createLinearGradient(x-mw/2,y,x+mw/2,y);
+    cols.forEach((c,i)=>g.addColorStop(i/(cols.length-1),c));
+    fg.fillStyle=g;fg.fillText(str,x,y);});
+}
+
+function GlowT(str,x,y,sz,col,gc,blur,a=1){
+  if(a<=0)return;
+  safe(()=>{
+    fg.globalAlpha=a*0.35; fg.shadowColor=gc; fg.shadowBlur=blur*2.2;
+    fg.font=`900 ${sz}px Tajawal`; fg.fillStyle=gc;
+    fg.textAlign='center'; fg.textBaseline='middle'; fg.fillText(str,x,y);
+    fg.shadowBlur=0; fg.shadowColor='transparent';
+    fg.globalAlpha=a; fg.shadowColor=gc; fg.shadowBlur=blur;
+    fg.fillStyle=col; fg.fillText(str,x,y);
+  });
+}
+
+function pill(x,y,w,h,fill,border,a=1){box(x-w/2,y-h/2,w,h,h/2,fill,border,a);}
+
+function ln(x1,y1,x2,y2,col,lw=1.5,a=1,dash=[]){
+  if(a<=0)return;
+  safe(()=>{fg.globalAlpha=a;fg.strokeStyle=col;fg.lineWidth=lw;fg.lineCap='round';
+    if(dash.length)fg.setLineDash(dash);
+    fg.beginPath();fg.moveTo(x1,y1);fg.lineTo(x2,y2);fg.stroke();
+    fg.setLineDash([]);});
+}
+
+function rGlow(x,y,r,col,a){
+  if(a<=0)return;
+  safe(()=>{fg.globalAlpha=a;const g=fg.createRadialGradient(x,y,0,x,y,r);
+    g.addColorStop(0,col);g.addColorStop(1,'transparent');
+    fg.fillStyle=g;fg.fillRect(0,0,VW,VH);});
+}
+
+/* animated count-up number */
+function countNum(val,x,y,sz,col,gc,p,delay,a=1){
+  const cp=cl(p*3-delay,0,1);
+  if(cp<=0||a<=0)return;
+  const shown=Math.floor(E.o4(cp)*val);
+  GlowT(shown+'',x,y,sz,col,gc,20,E.o3(cp)*a);
+}
+
+/* thin dashed connector beam */
+function beam(x1,y1,x2,y2,col,progress,a=1){
+  if(a<=0||progress<=0)return;
+  const ex=lp(x1,x2,progress), ey=lp(y1,y2,progress);
+  safe(()=>{
+    fg.globalAlpha=a*.5; fg.strokeStyle=col; fg.lineWidth=1;
+    fg.setLineDash([3,5]); fg.lineCap='round';
+    fg.beginPath(); fg.moveTo(x1,y1); fg.lineTo(ex,ey); fg.stroke();
+    fg.setLineDash([]);
+    /* dot at tip */
+    fg.globalAlpha=a; fg.beginPath(); fg.arc(ex,ey,2.5,0,Math.PI*2);
+    fg.fillStyle=col; fg.fill();
+  });
+}
+
+/* ── scene indicator overlay ── */
+function drawSceneIndicator(ti){
+  const idx=ti<SC[1].s?0:ti<SC[2].s?1:ti<SC[3].s?2:3;
+  const DOT=6, GAP=16, total=SC.length;
+  const startX=VW/2-(total-1)*(DOT+GAP)/2;
+  const iy=VH-22;
+  SC.forEach((_,i)=>{
+    const active=i===idx;
+    const dx=startX+i*(DOT+GAP);
+    safe(()=>{
+      if(active){
+        fg.globalAlpha=1;
+        fg.beginPath();fg.arc(dx,iy,DOT/2+1,0,Math.PI*2);
+        fg.fillStyle=K.cyan; fg.fill();
+        fg.globalAlpha=.25;
+        fg.beginPath();fg.arc(dx,iy,DOT+3,0,Math.PI*2);
+        fg.fillStyle=K.cyan; fg.fill();
+      } else {
+        fg.globalAlpha=.3;
+        fg.beginPath();fg.arc(dx,iy,DOT/2,0,Math.PI*2);
+        fg.fillStyle='rgba(255,255,255,.4)'; fg.fill();
+      }
+    });
+  });
+  /* scene label */
+  T(SC[idx].lbl, VW/2, VH-42, {sz:10,w:'600',col:'rgba(148,163,184,.55)',a:1});
+}
+
+/* ══════════════════════════════
+   SCENE 0 — BRAND REVEAL
+══════════════════════════════ */
+function scene0(t){
+  const p=sp(t,0);
+  const fIn=E.sp(cl(p*2.8,0,1));
+  const fOut=p>.84?E.o4((p-.84)/.16):0;
+  const a=fIn*(1-fOut);
+
+  /* deep glow pulse */
+  const pulse=.5+.5*Math.sin(t*.0038);
+  rGlow(VW/2,VH/2,340,'rgba(26,91,196,.12)',a*pulse);
+  rGlow(VW/2,VH/2,180,'rgba(6,182,212,.07)',a*(1-pulse*.3));
+
+  /* animated ring system */
+  [180,240,305].forEach((rad,ri)=>{
+    const rotSpeed=[.0008,.0006,.0004][ri];
+    const ringA=E.o4(cl(p*3-ri*.18,0,1))*(1-fOut)*.22;
+    if(ringA<=0)return;
+    safe(()=>{
+      fg.globalAlpha=ringA;
+      fg.beginPath();
+      fg.ellipse(VW/2,VH/2,rad,rad*.36,0,0,Math.PI*2);
+      /* gradient stroke */
+      const gs=fg.createLinearGradient(VW/2-rad,VH/2,VW/2+rad,VH/2);
+      gs.addColorStop(0,'transparent');
+      gs.addColorStop(.3,K.cyan);
+      gs.addColorStop(.7,K.blue);
+      gs.addColorStop(1,'transparent');
+      fg.strokeStyle=gs; fg.lineWidth=.8; fg.stroke();
+    });
+    /* orbit dot on each ring */
+    const ang=t*rotSpeed*(ri%2===0?1:-1);
+    const ox=VW/2+Math.cos(ang)*rad, oy=VH/2+Math.sin(ang)*rad*.36;
+    safe(()=>{
+      fg.globalAlpha=E.o4(cl(p*3-ri*.18,0,1))*(1-fOut)*.7;
+      fg.beginPath(); fg.arc(ox,oy,3,0,Math.PI*2);
+      const dc=fg.createRadialGradient(ox,oy,0,ox,oy,8);
+      dc.addColorStop(0,ri===1?K.amber:K.cyan); dc.addColorStop(1,'transparent');
+      fg.fillStyle=dc; fg.fill();
+      fg.beginPath(); fg.arc(ox,oy,1.5,0,Math.PI*2);
+      fg.fillStyle=ri===1?K.amber:K.white; fg.fill();
+    });
+  });
+
+  /* horizontal scan beam — premium edition */
+  const scanP=E.sine(cl(p*1.4,0,1));
+  const scanX=lp(-80,VW+80,scanP);
+  safe(()=>{
+    fg.globalAlpha=a*.22;
+    const sg=fg.createLinearGradient(scanX-120,0,scanX+120,0);
+    sg.addColorStop(0,'transparent');
+    sg.addColorStop(.35,'rgba(6,182,212,.15)');
+    sg.addColorStop(.5,K.cyan);
+    sg.addColorStop(.65,'rgba(6,182,212,.15)');
+    sg.addColorStop(1,'transparent');
+    fg.fillStyle=sg; fg.fillRect(scanX-120,0,240,VH);
+    /* bright line at scan center */
+    fg.globalAlpha=a*.5;
+    fg.strokeStyle=K.cyan; fg.lineWidth=.5;
+    fg.beginPath(); fg.moveTo(scanX,0); fg.lineTo(scanX,VH); fg.stroke();
+  });
+
+  /* corner brackets — 4 corners, slide in from edges */
+  const bA=E.o4(cl(p*3.5,0,1))*(1-fOut);
+  [[44,28,1,1],[VW-44,28,-1,1],[44,VH-28,1,-1],[VW-44,VH-28,-1,-1]].forEach(([bx,by,sx,sy],ci)=>{
+    const cA=E.o4(cl(p*4-ci*.08,0,1))*(1-fOut);
+    const len=lp(0,24,cA);
+    safe(()=>{fg.globalAlpha=cA*.55;fg.strokeStyle=K.cyan;fg.lineWidth=1.5;fg.lineCap='square';
+      fg.beginPath();fg.moveTo(bx,by+sy*len);fg.lineTo(bx,by);fg.lineTo(bx+sx*len,by);fg.stroke();});
+  });
+
+  /* logo — layered glow */
+  const logoA=E.sp(cl(p*3.2,0,1))*(1-fOut);
+  GlowT('EG Launch',VW/2,VH/2-24,72,K.white,K.cyan,36,logoA);
+
+  /* tagline — character-by-character feel via clip */
+  const tagA=E.o5(seg(p,.28,.38))*(1-fOut);
+  const tagY=VH/2+36;
+  T('مشروعك الصغير يستحق تسويق الكبار',VW/2,tagY,{sz:16,w:'600',col:'rgba(148,163,184,.9)',a:tagA});
+
+  /* amber badge */
+  const bdA=E.sp(seg(p,.50,.28))*(1-fOut);
+  pill(VW/2,VH/2+84,220,32,'rgba(245,158,11,.08)','rgba(245,158,11,.3)',bdA);
+  T('شريكك في النمو الرقمي  ✦  القاهرة، مصر',VW/2,VH/2+84,{sz:11.5,col:K.amber,a:bdA});
+}
+
+/* ══════════════════════════════
+   SCENE 1 — THE PROBLEM
+══════════════════════════════ */
+function scene1(t){
+  const p=sp(t,1);
+  const fIn=E.o5(cl(p*3,0,1));
+  const fOut=p>.86?E.o4((p-.86)/.14):0;
+  const a=fIn*(1-fOut);
+
+  /* header pill */
+  pill(VW/2,40,268,28,'rgba(239,68,68,.08)','rgba(239,68,68,.25)',a);
+  T('المشروع بدون تسويق رقمي',VW/2,40,{sz:12,col:'#fca5a5',a});
+
+  /* central business card */
+  const cx=VW/2, cy=VH/2+10;
+  const cardA=E.o4(cl(p*2.5,0,1))*(1-fOut);
+  glassCard(cx-80,cy-65,160,128,14,'rgba(15,28,60,.7)',cardA);
+  box(cx-56,cy-52,112,22,5,'rgba(245,158,11,.1)','rgba(245,158,11,.22)',cardA*.9);
+  T('مشروعي 🛍',cx,cy-41,{sz:10.5,col:K.amber,a:cardA*.9});
+  /* fake screen lines */
+  [0,1,2].forEach(i=>{
+    box(cx-44,cy-14+i*14,88,8,3,'rgba(255,255,255,.04)',null,cardA*.6);
+  });
+
+  /* problem metrics — left column */
+  const metrics=[
+    {icon:'👥',lbl:'المتابعين',v:'127 فقط',pct:0},
+    {icon:'💸',lbl:'المبيعات اليومية',v:'2–3 / يوم',pct:.18},
+    {icon:'📍',lbl:'نطاق الوصول',v:'محلي فقط',pct:.36},
+  ];
+  metrics.forEach(({icon,lbl,v,pct},i)=>{
+    const ma=E.sp(cl(p*3.5-pct,0,1))*(1-fOut);
+    const mx=cx-238, my=cy-52+i*62;
+    glassCard(mx-84,my-24,168,46,10,'rgba(180,30,30,.07)',ma);
+    safe(()=>{
+      fg.globalAlpha=ma*.55; fg.strokeStyle='rgba(239,68,68,.2)';
+      fg.lineWidth=1; fg.beginPath(); fg.roundRect(mx-84,my-24,168,46,10); fg.stroke();
+    });
+    T(`${icon}  ${lbl}`,mx,my-9,{sz:10.5,col:K.muted,a:ma});
+    T(v,mx,my+11,{sz:13.5,w:'700',col:'#f87171',a:ma});
+    /* connector beam to card */
+    beam(mx+84,my,cx-80,my,K.red,E.o3(cl(p*3-pct-.1,0,1))*(1-fOut),ma*.6);
+  });
+
+  /* right: "no digital presence" visual */
+  const rA=E.o4(seg(p,.42,.38))*(1-fOut);
+  const rx=cx+200, ry=cy-10;
+  safe(()=>{
+    fg.globalAlpha=rA*.15; fg.beginPath(); fg.arc(rx,ry,52,0,Math.PI*2);
+    fg.fillStyle=K.muted; fg.fill();
+  });
+  /* X mark */
+  safe(()=>{
+    fg.globalAlpha=rA*.75; fg.strokeStyle=K.red; fg.lineWidth=2.5; fg.lineCap='round';
+    const s=16;
+    fg.beginPath();fg.moveTo(rx-s,ry-s);fg.lineTo(rx+s,ry+s);fg.stroke();
+    fg.beginPath();fg.moveTo(rx+s,ry-s);fg.lineTo(rx-s,ry+s);fg.stroke();
+  });
+  T('لا حضور رقمي',rx,ry+44,{sz:10.5,col:'rgba(239,68,68,.65)',a:rA});
+
+  /* downward trend line */
+  const trendA=E.o4(seg(p,.6,.28))*(1-fOut);
+  safe(()=>{
+    fg.globalAlpha=trendA*.5; fg.strokeStyle=K.red; fg.lineWidth=1.5;
+    fg.setLineDash([4,3]); fg.beginPath();
+    fg.moveTo(cx+136,cy-60);
+    fg.lineTo(cx+162,cy-30);
+    fg.lineTo(cx+148,cy+5);
+    fg.lineTo(cx+178,cy+40);
+    fg.stroke(); fg.setLineDash([]);
+    /* arrowhead */
+    fg.globalAlpha=trendA*.6; fg.fillStyle=K.red;
+    fg.beginPath(); fg.moveTo(cx+178,cy+40);
+    fg.lineTo(cx+171,cy+30); fg.lineTo(cx+186,cy+31); fg.fill();
+  });
+}
+
+/* ══════════════════════════════
+   SCENE 2 — THE SOLUTION
+══════════════════════════════ */
+function scene2(t){
+  const p=sp(t,2);
+  const fOut=p>.88?E.o4((p-.88)/.12):0;
+  const aH=E.o5(cl(p*3.5,0,1))*(1-fOut);
+
+  /* header */
+  pill(VW/2,40,298,28,'rgba(34,197,94,.08)','rgba(34,197,94,.24)',aH);
+  T('النتيجة مع EG Launch  🚀',VW/2,40,{sz:12.5,col:K.green,a:aH});
+
+  /* phone / dashboard device */
+  const phA=E.o4(cl(p*2.8,0,1))*(1-fOut);
+  const phX=VW/2-28, phY=VH/2+8;
+  const PW=72, PH=148;
+
+  /* phone body */
+  glassCard(phX-PW/2,phY-PH/2,PW,PH,14,'rgba(8,20,55,.78)',phA);
+  safe(()=>{
+    fg.globalAlpha=phA*.6; fg.strokeStyle='rgba(6,182,212,.35)';
+    fg.lineWidth=1; fg.beginPath(); fg.roundRect(phX-PW/2,phY-PH/2,PW,PH,14); fg.stroke();
+  });
+  /* notch */
+  box(phX-14,phY-PH/2+7,28,5,3,'rgba(0,0,0,.5)',null,phA*.8);
+  /* animated bars chart */
+  const barData=[.28,.50,.72,.88,1];
+  barData.forEach((h,i)=>{
+    const bH=h*52*E.o4(cl(p*2-.15,0,1));
+    const bx=phX-22+i*11, by=phY+48-bH;
+    safe(()=>{
+      fg.globalAlpha=phA*.85;
+      const gr=fg.createLinearGradient(0,by,0,phY+48);
+      gr.addColorStop(0,K.cyan); gr.addColorStop(1,'rgba(6,182,212,.05)');
+      fg.fillStyle=gr; fg.beginPath(); fg.roundRect(bx,by,8,bH,[2,2,0,0]); fg.fill();
+    });
+  });
+  /* sparkle dots on phone */
+  [[-18,-52],[18,-52],[0,-38]].forEach(([dx,dy],si)=>{
+    const sa=E.sp(cl(p*3-si*.15,0,1))*(1-fOut);
+    safe(()=>{
+      fg.globalAlpha=sa*.6; fg.fillStyle=K.cyan;
+      fg.beginPath(); fg.arc(phX+dx,phY+dy,2,0,Math.PI*2); fg.fill();
+    });
+  });
+
+  /* metric cards — 3 premium floating cards */
+  const mData=[
+    {val:'+180',sfx:'%', lbl:'نمو عضوي',     col:K.cyan,   x:VW*.67, y:VH*.28},
+    {val:'2.8',  sfx:'×', lbl:'متوسط ROAS',   col:K.amber,  x:VW*.80, y:VH*.52},
+    {val:'−40',  sfx:'%', lbl:'تكلفة/عميل',   col:K.green,  x:VW*.67, y:VH*.76},
+  ];
+  mData.forEach((m,i)=>{
+    const delay=i*.22;
+    const ma=E.sp(cl(p*2.4-delay,0,1))*(1-fOut);
+    const sc=lp(.05,1,E.bk(cl(p*2.4-delay,0,1)));
+    if(ma<=0)return;
+
+    safe(()=>{
+      fg.globalAlpha=ma; fg.translate(m.x,m.y); fg.scale(sc,sc);
+      /* card glass */
+      fg.beginPath(); fg.roundRect(-72,-34,144,68,12);
+      const rgb=m.col==='#f59e0b'?'245,158,11':m.col==='#22c55e'?'34,197,94':'6,182,212';
+      fg.fillStyle=`rgba(${rgb},.07)`; fg.fill();
+      fg.strokeStyle=`rgba(${rgb},.28)`; fg.lineWidth=1; fg.stroke();
+      /* top accent line */
+      fg.beginPath(); fg.moveTo(-60,m.y>VH*.4?34:-34); fg.lineTo(60,m.y>VH*.4?34:-34);
+      fg.strokeStyle=`rgba(${rgb},.15)`; fg.lineWidth=1; fg.stroke();
+      /* glow number */
+      fg.shadowColor=m.col; fg.shadowBlur=22;
+      fg.font=`900 30px Tajawal`; fg.fillStyle=m.col;
+      fg.textAlign='center'; fg.textBaseline='middle';
+      fg.fillText(m.val+m.sfx,0,-7);
+      fg.shadowBlur=0; fg.shadowColor='transparent';
+      fg.font=`400 11px Cairo`; fg.fillStyle=K.muted;
+      fg.fillText(m.lbl,0,17);
+    });
+    /* beam from phone to card */
+    const beamA=E.o3(cl(p*2.4-delay-.08,0,1))*(1-fOut);
+    beam(phX+PW/2,m.y,m.x-74,m.y,m.col,beamA,ma*.7);
+  });
+
+  /* upward trend on left */
+  const trendA=E.o4(seg(p,.55,.3))*(1-fOut);
+  safe(()=>{
+    fg.globalAlpha=trendA*.45; fg.strokeStyle=K.green; fg.lineWidth=1.5;
+    fg.beginPath();
+    fg.moveTo(phX-110,phY+50); fg.lineTo(phX-88,phY+25);
+    fg.lineTo(phX-68,phY+5); fg.lineTo(phX-50,phY-28);
+    fg.stroke();
+    fg.globalAlpha=trendA*.55; fg.fillStyle=K.green;
+    fg.beginPath(); fg.moveTo(phX-50,phY-28);
+    fg.lineTo(phX-58,phY-20); fg.lineTo(phX-42,phY-20); fg.fill();
+  });
+}
+
+/* ══════════════════════════════
+   SCENE 3 — CTA / LAUNCH
+══════════════════════════════ */
+function scene3(t){
+  const p=sp(t,3);
+  const fIn=E.sp(cl(p*3,0,1));
+  const pulse=.5+.5*Math.sin(t*.0055);
+
+  /* deep glow halo */
+  rGlow(VW/2,VH/2-18,320,'rgba(26,91,196,.14)',fIn*(.7+.3*pulse));
+  rGlow(VW/2,VH/2-18,160,'rgba(6,182,212,.09)',fIn*pulse);
+
+  /* expanding rings */
+  [1,2,3].forEach(ri=>{
+    const rp=cl(p*2-ri*.18,0,1);
+    const rad=lp(20,ri*78,E.o3(rp));
+    const opa=E.o3(rp)*(1-E.o3(rp))*.3*fIn;
+    safe(()=>{
+      fg.globalAlpha=opa;
+      fg.beginPath(); fg.arc(VW/2,VH/2-18,rad,0,Math.PI*2);
+      fg.strokeStyle=K.cyan; fg.lineWidth=.8; fg.stroke();
+    });
+  });
+
+  /* service pills — orbiting */
+  const services=[
+    {t:'الهوية البصرية',col:K.amber},
+    {t:'إعلانات ممولة', col:K.cyan},
+    {t:'إنتاج فيديو',   col:K.purple},
+    {t:'SEO & تحليل',   col:K.green},
+    {t:'سوشيال ميديا',  col:K.cyan},
+    {t:'استراتيجية',    col:K.amber},
+  ];
+  services.forEach((s,i)=>{
+    const ang=(i/services.length)*Math.PI*2+t*.0011*(i%2===0?1:-1);
+    const rx=210, ry=76;
+    const px=VW/2+Math.cos(ang)*rx, py=VH/2-18+Math.sin(ang)*ry;
+    const sa=fIn*(.6+.4*Math.sin(t*.0028+i*1.05));
+    const tw=fg.measureText(s.t);
+    const pw=Math.max(110,s.t.length*9+32);
+    pill(px,py,pw,26,'rgba(255,255,255,.03)',s.col+'44',sa*.75);
+    /* colored left accent on pill */
+    safe(()=>{
+      fg.globalAlpha=sa*.6; fg.fillStyle=s.col;
+      fg.beginPath(); fg.arc(px-pw/2+10,py,3,0,Math.PI*2); fg.fill();
+    });
+    T(s.t,px,py,{sz:10.5,w:'600',col:'rgba(220,235,255,.85)',a:sa*.85});
+  });
+
+  /* main logo */
+  GlowT('EG Launch',VW/2,VH/2-18,76,K.white,K.cyan,40,fIn);
+
+  /* tagline */
+  T('أدوات احترافية. نتائج حقيقية. كل حاجة في مكانها.',VW/2,VH/2+38,
+    {sz:14,w:'600',col:'rgba(148,163,184,.88)',a:E.o5(seg(p,.2,.3))});
+
+  /* domain subtle */
+  T('eglaunch.com',VW/2,VH/2+62,
+    {sz:11.5,col:'rgba(100,140,180,.4)',a:E.o3(seg(p,.35,.28))});
+
+  /* CTA button — premium with shimmer */
+  const s3=E.sp(seg(p,.48,.35));
+  const BW=226, BH=46;
+  safe(()=>{
+    if(s3<=0)return;
+    fg.globalAlpha=s3;
+    fg.beginPath(); fg.roundRect(VW/2-BW/2,VH/2+80,BW,BH,23);
+    const gl=fg.createLinearGradient(VW/2-BW/2,0,VW/2+BW/2,0);
+    gl.addColorStop(0,'#1a5bc4'); gl.addColorStop(.5,'#0891b2'); gl.addColorStop(1,'#06b6d4');
+    fg.fillStyle=gl; fg.fill();
+    /* button top shimmer */
+    fg.beginPath(); fg.roundRect(VW/2-BW/2+1,VH/2+81,BW-2,BH/2,22);
+    fg.fillStyle='rgba(255,255,255,.06)'; fg.fill();
+    /* button border */
+    fg.beginPath(); fg.roundRect(VW/2-BW/2,VH/2+80,BW,BH,23);
+    fg.strokeStyle='rgba(6,182,212,.4)'; fg.lineWidth=1; fg.stroke();
+  });
+  T('ابدأ مشروعك الآن ←',VW/2,VH/2+103,{sz:14.5,w:'700',col:K.white,a:s3});
+}
+
+/* ── transitions — premium horizontal wipe ── */
+function drawTrans(t){
+  SC.forEach((s,i)=>{
+    if(i===0)return;
+    const tt=cl((t-(s.s-200))/400,0,1);
+    const op=tt<.5?E.io(tt*2):1-E.io((tt-.5)*2);
+    if(op>.003){
+      safe(()=>{
+        fg.globalAlpha=op*.7; fg.fillStyle=K.dark; fg.fillRect(0,0,VW,VH);
+        /* thin cyan sweep line at transition midpoint */
+        if(tt>.35&&tt<.65){
+          const sweepA=(1-Math.abs(tt-.5)*6)*op;
+          if(sweepA>0){
+            fg.globalAlpha=sweepA*.4;
+            fg.strokeStyle=K.cyan; fg.lineWidth=1;
+            fg.beginPath(); fg.moveTo(0,VH/2); fg.lineTo(VW,VH/2); fg.stroke();
+          }
+        }
+      });
+    }
+  });
+}
+
+/* ── render ── */
+function draw(t){
+  const ti=((t%TOT)+TOT)%TOT;
+  drawBg(ti); fg.clearRect(0,0,VW,VH);
+  if     (ti<SC[1].s) scene0(ti);
+  else if(ti<SC[2].s) scene1(ti);
+  else if(ti<SC[3].s) scene2(ti);
+  else                scene3(ti);
+  drawTrans(ti);
+  drawSceneIndicator(ti);
+}
+
+/* ── playback ── */
+let elapsed=0, running=false, lastTS=null, raf=null;
+
+function tick(ts){
+  if(!running)return;
+  if(!lastTS)lastTS=ts;
+  elapsed+=(ts-lastTS); lastTS=ts;
+  if(elapsed>=TOT) elapsed=elapsed%TOT;
+  draw(elapsed);
+  const pct=(elapsed%TOT)/TOT*100;
+  const bf=document.getElementById('bar-fill');
+  if(bf)bf.style.width=pct+'%';
+  raf=requestAnimationFrame(tick);
+}
+
+function setBtn(on){
+  const b=document.getElementById('btnPlay');
+  if(!b)return;
+  b.textContent=on?'⏸ إيقاف':'▶ تشغيل';
+  on?b.classList.add('on'):b.classList.remove('on');
+}
+
+function startPlay(){
+  if(running)return;
+  running=true; lastTS=null; setBtn(true);
+  raf=requestAnimationFrame(tick);
+}
+function pausePlay(){
+  running=false; cancelAnimationFrame(raf); lastTS=null; setBtn(false);
+}
+
+document.getElementById('btnPlay').addEventListener('click',()=>{
+  running?pausePlay():startPlay();
+});
+document.getElementById('btnReset').addEventListener('click',()=>{
+  elapsed=0; lastTS=null; draw(0);
+  const bf=document.getElementById('bar-fill');
+  if(bf)bf.style.width='0%';
+  if(!running)startPlay();
+});
+const bt=document.getElementById('bar-track');
+if(bt)bt.addEventListener('click',e=>{
+  const r=e.currentTarget.getBoundingClientRect();
+  elapsed=((e.clientX-r.left)/r.width)*TOT;
+  draw(elapsed);
+});
+
+window.skipVideo=function(){
+  pausePlay();
+  const vi=document.getElementById('video-intro');
+  if(vi)vi.style.display='none';
+};
+
+/* ── visibility: pause when tab hidden ── */
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){if(running){running=false;cancelAnimationFrame(raf);}}
+  else{startPlay();}
+});
+
+/* ── AUTOPLAY — multiple triggers for max compatibility ── */
+let videoStarted=false;
+function initVideo(){
+  if(videoStarted)return;
+  videoStarted=true;
+  draw(0);
+  startPlay();
+}
+
+/* trigger 1: window load */
+window.addEventListener('load',()=>setTimeout(initVideo,80));
+/* trigger 2: if already loaded */
+if(document.readyState==='complete')setTimeout(initVideo,80);
+/* trigger 3: IntersectionObserver when canvas visible */
+try{
+  new IntersectionObserver((ens,obs)=>{
+    ens.forEach(e=>{if(e.isIntersecting){initVideo();obs.disconnect();}});
+  },{threshold:0.05}).observe(document.getElementById('video-stage'));
+}catch(e){}
+/* trigger 4: absolute fallback */
+setTimeout(initVideo,1500);
+
+})();
+</script>
+
+<!-- ══════════════════════════════════════
+     SITE LOGIC
+══════════════════════════════════════ -->
+<script>
+(function(){
+'use strict';
+
+/* ── REVEAL ANIMATION ──
+   Strategy: content starts visible (opacity:1).
+   JS adds 'will-anim' class (opacity:0) immediately,
+   then IntersectionObserver adds 'done' when in view.
+   If JS/Observer fails → content stays visible. Safe always.
+*/
+(function initReveal(){
+  const els=document.querySelectorAll('.reveal');
+  if(!els.length)return;
+  try{
+    // Mark all as will-animate (hides them)
+    els.forEach(el=>el.classList.add('will-anim'));
+
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('done');
+          obs.unobserve(e.target);
+        }
+      });
+    },{threshold:0, rootMargin:'0px 0px -40px 0px'});
+
+    els.forEach(el=>obs.observe(el));
+
+    // Safety fallback: reveal anything still hidden after 3s
+    setTimeout(()=>{
+      document.querySelectorAll('.will-anim:not(.done)').forEach(el=>{
+        el.classList.add('done');
+      });
+    },3000);
+  }catch(err){
+    // Observer failed → remove will-anim so content shows
+    els.forEach(el=>el.classList.remove('will-anim'));
+  }
+})();
+
+/* ── COUNTERS ──
+   Uses requestAnimationFrame for smooth animation.
+   Multiple triggers. Guards against double-run.
+*/
+const countersDone=new Set();
+
+function animCount(el,target,suffix,duration=1800){
+  if(countersDone.has(el))return;
+  countersDone.add(el);
+  let start=null;
+  function step(ts){
+    if(!start)start=ts;
+    const prog=Math.min((ts-start)/duration,1);
+    const ease=1-Math.pow(1-prog,3);
+    el.textContent=Math.floor(ease*target)+suffix;
+    if(prog<1)requestAnimationFrame(step);
+    else el.textContent=target+suffix;
+  }
+  el.textContent='0'+suffix;
+  requestAnimationFrame(step);
+}
+
+function runCounters(){
+  [
+    {id:'cnt1',val:30,suffix:''},
+    {id:'cnt2',val:18,suffix:''},
+    {id:'cnt3',val:94,suffix:'%'},
+  ].forEach(({id,val,suffix})=>{
+    const el=document.getElementById(id);
+    if(el)animCount(el,val,suffix);
+  });
+}
+
+// Run when stats bar enters viewport OR after 2s
+try{
+  const statsBar=document.querySelector('.stats-bar');
+  if(statsBar){
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){runCounters();obs.disconnect();}
+      });
+    },{threshold:0.1});
+    obs.observe(statsBar);
+    setTimeout(runCounters,2000); // fallback
+  }
+}catch(e){
+  setTimeout(runCounters,500);
+}
+
+/* ── NAVBAR ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').style.background=
+    window.scrollY>60?'rgba(5,14,31,.98)':'rgba(5,14,31,.92)';
+});
+
+/* ── MOBILE MENU ── */
+window.toggleMenu=function(){
+  document.getElementById('navMobile').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
+};
+window.closeMenu=function(){
+  document.getElementById('navMobile').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+};
+
+/* ── HELPERS ── */
+window.setType=function(btn){
+  document.querySelectorAll('.user-type').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+};
+window.goTo=function(id){
+  document.querySelector(id).scrollIntoView({behavior:'smooth'});
+};
+window.toggleLang=function(){
+  alert('سيتم إضافة دعم اللغة الإنجليزية قريباً');
+};
+
+/* ── LOGIN ── */
+window.handleLogin=function(){
+  const u=document.getElementById('loginUser').value;
+  const p=document.getElementById('loginPass').value;
+  if(!u||!p){alert('من فضلك ادخل اسم المستخدم وكلمة المرور');return;}
+  const m=document.getElementById('loginSuccess');
+  m.style.display='block';
+  setTimeout(()=>m.style.display='none',4000);
+};
+
+/* ── CONTACT ── */
+window.handleContact=function(){
+  const n=document.getElementById('cName').value;
+  const ph=document.getElementById('cPhone').value;
+  const f=document.getElementById('cField').value;
+  if(!n||!ph||!f){alert('من فضلك اكمل البيانات المطلوبة');return;}
+  const m=document.getElementById('contactSuccess');
+  m.style.display='block';
+  ['cName','cPhone','cMsg'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('cField').value='';
+  document.getElementById('cDuration').value='';
+  setTimeout(()=>m.style.display='none',5000);
+};
+
+})();
+</script>
+</body>
+</html>
